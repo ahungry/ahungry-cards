@@ -14,6 +14,18 @@ function debug (m) {
   lastM = m
 }
 
+function activate (el) {
+  activeEl = undefined
+
+  if (el.activated) {
+    el.style.borderRadius = '5px'
+    el.activated = false
+  } else {
+    el.style.borderRadius = '200px'
+    el.activated = true
+  }
+}
+
 setInterval(() => {
   document.getElementById('debug').innerHTML = ''
 }, 10000)
@@ -81,8 +93,10 @@ for (let i = 0; i < els.length; i++) {
 
     setTimeout(() => { el.clicked = 0 }, 500)
     if (el.clicked >= 2) {
-      alert('activate it...')
-      activeEl = undefined
+      activate(el)
+      // alert('activate it...')
+      // activeEl = undefined
+      // el.style.borderRadius = '200px'
     }
   })
 
@@ -142,8 +156,10 @@ for (let i = 0; i < els.length; i++) {
     el.clicked = clickCount + 1
 
     if (el.clicked >= 2) {
-      alert('activate it...')
-      activeEl = undefined
+      activate(el)
+      // alert('activate it...')
+      // activeEl = undefined
+      // el.style.borderRadius = '200px'
     }
     setTimeout(() => { el.clicked = 0 }, 500)
     el.style.zIndex = z++
