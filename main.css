@@ -1,5 +1,15 @@
+#debug {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #333;
+  color: orange;
+}
+
 .card {
   background: #222;
+  border: 2px solid orange;
   border-radius: 4px;
   box-shadow: 3px 3px 2px #000;
   color: #fff;
@@ -7,7 +17,7 @@
   height: 150px;
   padding: 10px;
   position: absolute;
-  top: 0;
+  top: 30px;
   left: 0;
   width: 100px;
 }
