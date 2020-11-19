@@ -1,10 +1,10 @@
 .card {
   background: #222;
   border-radius: 4px;
-  box-shadow: 0px 0px 2px #999;
+  box-shadow: 3px 3px 2px #000;
   color: #fff;
   cursor: move;
-  height: 100px;
+  height: 150px;
   padding: 10px;
   position: absolute;
   top: 0;
