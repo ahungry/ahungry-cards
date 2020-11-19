@@ -53,15 +53,16 @@ for (let i = 0; i < els.length; i++) {
     mouseX = e.touches[0].clientX
     mouseY = e.touches[0].clientY
 
-    // const clickCount = el.clicked || 0
-    // el.clicked = clickCount + 1
+    const clickCount = el.clicked || 0
+    el.clicked = clickCount + 1
+    debug(clickCount)
 
-    // if (el.clicked >= 3) alert('activate it...')
-    // setTimeout(() => { el.clicked = 0 }, 50)
+    setTimeout(() => { el.clicked = 0 }, 500)
+    if (el.clicked >= 2) alert('activate it...')
   })
 
   el.addEventListener('touchmove', (e) => {
-    debug('touchmove')
+    // debug('touchmove')
     e.preventDefault()
     // el.dispatchEvent(new Event('drag'))
 
@@ -79,7 +80,7 @@ for (let i = 0; i < els.length; i++) {
   })
 
   el.addEventListener('touchend', (e) => {
-    debug('touchend')
+    // debug('touchend')
     e.preventDefault()
     // el.dispatchEvent(new Event('dragend'))
     // el.style.left = '50px'
