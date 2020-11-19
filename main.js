@@ -14,6 +14,19 @@ const els = document.querySelectorAll('.card')
 for (let i = 0; i < els.length; i++) {
   const el = els[i]
 
+  // TODO: Think about how to provide similar D&D for this.
+  el.addEventListener('touchstart', (e) => {
+    // el.dispatchEvent(new Event('dragstart'))
+  })
+
+  el.addEventListener('touchmove', (e) => {
+    // el.dispatchEvent(new Event('drag'))
+  })
+
+  el.addEventListener('touchend', (e) => {
+    // el.dispatchEvent(new Event('dragend'))
+  })
+
   el.addEventListener('mousedown', (e) => {
     const clickCount = el.clicked || 0
     el.clicked = clickCount + 1

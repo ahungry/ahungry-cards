@@ -11,3 +11,16 @@
   left: 0;
   width: 100px;
 }
+
+/* If width is less than 600 do this stuff */
+@media (max-width: 600px)
+{
+  html {
+  }
+  body {
+  }
+  .card {
+    height: 7.5%;
+    width: 5%;
+  }
+}
