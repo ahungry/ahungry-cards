@@ -1,3 +1,4 @@
+let elevateTimeout
 let activeEl
 let mouseX = 0
 let mouseY = 0
@@ -170,9 +171,12 @@ for (let i = 0; i < els.length; i++) {
 
     activeEl = el
 
-    activeEl.style.height = '165px';
-    activeEl.style.width = '110px';
-    activeEl.style.boxShadow = '10px 30px 6px rgba(0,0,0,0.8)'
+    clearTimeout(elevateTimeout)
+    elevateTimeout = setTimeout(() => {
+      activeEl.style.height = '165px';
+      activeEl.style.width = '110px';
+      activeEl.style.boxShadow = '10px 30px 6px rgba(0,0,0,0.8)'
+    }, 200)
 
     offsetLeft = el.offsetLeft
     offsetTop = el.offsetTop
