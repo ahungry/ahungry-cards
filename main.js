@@ -18,10 +18,12 @@ function activate (el) {
   activeEl = undefined
 
   if (el.activated) {
-    el.style.borderRadius = '5px'
+    el.style.borderRadius = '0px'
+    el.style.borderColor = 'teal'
     el.activated = false
   } else {
-    el.style.borderRadius = '200px'
+    el.style.borderRadius = '0px 40px 0px 40px'
+    el.style.borderColor = 'orange'
     el.activated = true
   }
 }
