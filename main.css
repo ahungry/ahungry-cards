@@ -8,11 +8,11 @@
 }
 
 .card {
-  transition: border-radius 0.5s ease;
+  transition: border-radius 0.5s ease, box-shadow 0.2s ease;
   background: #222;
   border: 2px solid teal;
   border-radius: 0px;
-  box-shadow: 3px 3px 2px #000;
+  box-shadow: 3px 3px 2px rgba(0,0,0,0.8);
   color: #fff;
   cursor: move;
   height: 150px;

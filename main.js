@@ -34,6 +34,10 @@ setInterval(() => {
 
 document.addEventListener('mouseup', (e) => {
   debug('mouse up')
+  activeEl.style.height = '150px';
+  activeEl.style.width = '100px';
+  activeEl.style.boxShadow = '3px 3px 2px rgba(0,0,0,0.8)'
+
   activeEl = undefined
 })
 
@@ -85,6 +89,11 @@ for (let i = 0; i < els.length; i++) {
     mouseY = e.touches[0].clientY
 
     activeEl = el
+
+    activeEl.style.height = '165px';
+    activeEl.style.width = '110px';
+    activeEl.style.boxShadow = '10px 30px 6px rgba(0,0,0,0.8)'
+
     offsetLeft = el.offsetLeft
     offsetTop = el.offsetTop
     el.style.zIndex = z++
@@ -130,6 +139,10 @@ for (let i = 0; i < els.length; i++) {
   })
 
   el.addEventListener('touchend', (e) => {
+    activeEl.style.height = '150px';
+    activeEl.style.width = '100px';
+    activeEl.style.boxShadow = '3px 3px 2px rgba(0,0,0,0.8)'
+
     activeEl = undefined
     // debug('touchend')
     e.preventDefault()
@@ -152,6 +165,11 @@ for (let i = 0; i < els.length; i++) {
     debug('mouse down')
 
     activeEl = el
+
+    activeEl.style.height = '165px';
+    activeEl.style.width = '110px';
+    activeEl.style.boxShadow = '10px 30px 6px rgba(0,0,0,0.8)'
+
     offsetLeft = el.offsetLeft
     offsetTop = el.offsetTop
     const clickCount = el.clicked || 0
