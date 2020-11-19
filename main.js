@@ -17,6 +17,10 @@ function debug (m) {
 function activate (el) {
   activeEl = undefined
 
+  el.style.height = '150px';
+  el.style.width = '100px';
+  el.style.boxShadow = '3px 3px 2px rgba(0,0,0,0.8)'
+
   if (el.activated) {
     el.style.borderRadius = '0px'
     el.style.borderColor = 'teal'
