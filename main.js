@@ -20,6 +20,9 @@ setInterval(() => {
   document.getElementById('debug').innerHTML = ''
 }, 10000)
 
+/**
+ * Toggles the activated state of a card.
+ */
 function activate (el) {
   activeEl = undefined
 
@@ -38,6 +41,14 @@ function activate (el) {
   }
 }
 
+function handleMousePos (x, y) {
+  mouseX = x
+  mouseY = y
+}
+
+/**
+ * If we have a card selected (active) move it around by updating it's position.
+ */
 function handleCardMove (x, y) {
   if (activeEl) {
     const offsetX = (mouseX - offsetLeft)
@@ -48,6 +59,11 @@ function handleCardMove (x, y) {
   }
 }
 
+/**
+ * Initialize the card offsets and the active clicked card.  Ensures
+ * it displays on top and has some indicator it is active (raised shadow).
+ * Triggers an activate effect on double click.
+ */
 function handleCardDown (el) {
   activeEl = el
 
@@ -70,11 +86,23 @@ function handleCardDown (el) {
   el.style.zIndex = z++
 }
 
-document.addEventListener('mouseup', (e) => {
-  debug('mouse up')
+/**
+ * Card has stopped being dragged - turn off indicators.
+ */
+function handleCardUp () {
   activeEl.style.boxShadow = '3px 3px 2px rgba(0,0,0,0.8)'
 
   activeEl = undefined
+}
+
+function disableDrags (el) {
+  ['dragstart', 'dragend', 'dragover', 'drag'].map(s => {
+    el.addEventListener(s, (e) => { return e.preventDefault() })
+  })
+}
+
+document.addEventListener('mouseup', (e) => {
+  handleCardUp()
 })
 
 document.addEventListener('mousemove', (e) => {
@@ -82,8 +110,7 @@ document.addEventListener('mousemove', (e) => {
 })
 
 document.addEventListener('mousedown', (e) => {
-  mouseX = e.clientX
-  mouseY = e.clientY
+  handleMousePos(e.clientX, e.clientY)
 })
 
 const els = document.querySelectorAll('.card')
@@ -91,13 +118,9 @@ const els = document.querySelectorAll('.card')
 for (let i = 0; i < els.length; i++) {
   const el = els[i]
 
-  // TODO: Think about how to provide similar D&D for this.
   el.addEventListener('touchstart', (e) => {
     e.preventDefault()
-    debug('touchstart')
-    mouseX = e.touches[0].clientX
-    mouseY = e.touches[0].clientY
-
+    handleMousePos(e.touches[0].clientX, e.touches[0].clientY)
     handleCardDown(el)
   })
 
@@ -107,29 +130,13 @@ for (let i = 0; i < els.length; i++) {
   })
 
   el.addEventListener('touchend', (e) => {
-    activeEl.style.boxShadow = '3px 3px 2px rgba(0,0,0,0.8)'
-
-    activeEl = undefined
     e.preventDefault()
+    handleCardUp()
   })
 
   el.addEventListener('mousedown', (e) => {
     handleCardDown(el)
   })
 
-  el.addEventListener('dragstart', (e) => {
-    return e.preventDefault()
-  })
-
-  el.addEventListener('dragend', (e) => {
-    return e.preventDefault()
-  })
-
-  el.addEventListener('dragover', (e) => {
-    return e.preventDefault()
-  })
-
-  el.addEventListener('drag', (e) => {
-    return e.preventDefault()
-  })
+  disableDrags(el)
 }
