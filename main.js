@@ -18,17 +18,19 @@ function debug (m) {
 function activate (el) {
   activeEl = undefined
 
-  el.style.height = '150px';
-  el.style.width = '100px';
+  // el.style.height = '150px';
+  // el.style.width = '100px';
   el.style.boxShadow = '3px 3px 2px rgba(0,0,0,0.8)'
 
   if (el.activated) {
     el.style.borderRadius = '0px'
-    el.style.borderColor = 'teal'
+    el.style.borderColor = '#000'
+    el.style.borderStyle = 'solid'
     el.activated = false
   } else {
     el.style.borderRadius = '0px 40px 0px 40px'
-    el.style.borderColor = 'orange'
+    el.style.borderColor = '#000'
+    el.style.borderStyle = 'dashed'
     el.activated = true
   }
 }
@@ -39,8 +41,8 @@ setInterval(() => {
 
 document.addEventListener('mouseup', (e) => {
   debug('mouse up')
-  activeEl.style.height = '150px';
-  activeEl.style.width = '100px';
+  // activeEl.style.height = '150px';
+  // activeEl.style.width = '100px';
   activeEl.style.boxShadow = '3px 3px 2px rgba(0,0,0,0.8)'
 
   activeEl = undefined
@@ -95,8 +97,8 @@ for (let i = 0; i < els.length; i++) {
 
     activeEl = el
 
-    activeEl.style.height = '165px';
-    activeEl.style.width = '110px';
+    // activeEl.style.height = '165px';
+    // activeEl.style.width = '110px';
     activeEl.style.boxShadow = '10px 20px 6px rgba(0,0,0,0.8)'
 
     offsetLeft = el.offsetLeft
@@ -144,8 +146,8 @@ for (let i = 0; i < els.length; i++) {
   })
 
   el.addEventListener('touchend', (e) => {
-    activeEl.style.height = '150px';
-    activeEl.style.width = '100px';
+    // activeEl.style.height = '150px';
+    // activeEl.style.width = '100px';
     activeEl.style.boxShadow = '3px 3px 2px rgba(0,0,0,0.8)'
 
     activeEl = undefined
@@ -173,8 +175,8 @@ for (let i = 0; i < els.length; i++) {
 
     clearTimeout(elevateTimeout)
     elevateTimeout = setTimeout(() => {
-      activeEl.style.height = '165px';
-      activeEl.style.width = '110px';
+      // activeEl.style.height = '165px';
+      // activeEl.style.width = '110px';
       activeEl.style.boxShadow = '10px 20px 6px rgba(0,0,0,0.8)'
     }, 200)
 
