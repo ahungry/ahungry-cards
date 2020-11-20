@@ -9,11 +9,16 @@ let offsetLeft = 0
 let offsetTop = 0
 
 let lastM = ''
+
 function debug (m) {
   if (m === lastM) return
   document.getElementById('debug').innerHTML = JSON.stringify(m)
   lastM = m
 }
+
+setInterval(() => {
+  document.getElementById('debug').innerHTML = ''
+}, 10000)
 
 function activate (el) {
   activeEl = undefined
@@ -33,9 +38,37 @@ function activate (el) {
   }
 }
 
-setInterval(() => {
-  document.getElementById('debug').innerHTML = ''
-}, 10000)
+function handleCardMove (x, y) {
+  if (activeEl) {
+    const offsetX = (mouseX - offsetLeft)
+    const offsetY = (mouseY - offsetTop)
+
+    activeEl.style.left = x - offsetX + 'px'
+    activeEl.style.top = y - offsetY + 'px'
+  }
+}
+
+function handleCardDown (el) {
+  activeEl = el
+
+  clearTimeout(elevateTimeout)
+  elevateTimeout = setTimeout(() => {
+    activeEl.style.boxShadow = '10px 20px 6px rgba(0,0,0,0.8)'
+  }, 200)
+
+  offsetLeft = el.offsetLeft
+  offsetTop = el.offsetTop
+
+  const clickCount = el.clicked || 0
+  el.clicked = clickCount + 1
+
+  if (el.clicked >= 2) {
+    activate(el)
+  }
+  setTimeout(() => { el.clicked = 0 }, 500)
+
+  el.style.zIndex = z++
+}
 
 document.addEventListener('mouseup', (e) => {
   debug('mouse up')
@@ -44,23 +77,13 @@ document.addEventListener('mouseup', (e) => {
   activeEl = undefined
 })
 
+document.addEventListener('mousemove', (e) => {
+  handleCardMove(e.pageX, e.pageY)
+})
+
 document.addEventListener('mousedown', (e) => {
   mouseX = e.clientX
   mouseY = e.clientY
-})
-
-document.addEventListener('mousemove', (e) => {
-  debug({ x: e.pageX, y: e.pageY })
-
-  console.log(activeEl)
-
-  if (activeEl) {
-    const offsetX = (mouseX - offsetLeft)
-    const offsetY = (mouseY - offsetTop)
-
-    activeEl.style.left = e.pageX - offsetX + 'px'
-    activeEl.style.top = e.pageY - offsetY + 'px'
-  }
 })
 
 const els = document.querySelectorAll('.card')
@@ -70,40 +93,17 @@ for (let i = 0; i < els.length; i++) {
 
   // TODO: Think about how to provide similar D&D for this.
   el.addEventListener('touchstart', (e) => {
-    debug('touchstart')
     e.preventDefault()
+    debug('touchstart')
     mouseX = e.touches[0].clientX
     mouseY = e.touches[0].clientY
 
-    activeEl = el
-
-    activeEl.style.boxShadow = '10px 20px 6px rgba(0,0,0,0.8)'
-
-    offsetLeft = el.offsetLeft
-    offsetTop = el.offsetTop
-    el.style.zIndex = z++
-
-    const clickCount = el.clicked || 0
-    el.clicked = clickCount + 1
-    debug(clickCount)
-
-    setTimeout(() => { el.clicked = 0 }, 500)
-    if (el.clicked >= 2) {
-      activate(el)
-    }
+    handleCardDown(el)
   })
 
   el.addEventListener('touchmove', (e) => {
     e.preventDefault()
-    debug(activeEl)
-
-    if (activeEl) {
-      const offsetX = (mouseX - offsetLeft)
-      const offsetY = (mouseY - offsetTop)
-
-      activeEl.style.left = e.touches[0].clientX - offsetX + 'px'
-      activeEl.style.top = e.touches[0].clientY - offsetY + 'px'
-    }
+    handleCardMove(e.touches[0].clientX, e.touches[0].clientY)
   })
 
   el.addEventListener('touchend', (e) => {
@@ -114,25 +114,7 @@ for (let i = 0; i < els.length; i++) {
   })
 
   el.addEventListener('mousedown', (e) => {
-    debug('mouse down')
-
-    activeEl = el
-
-    clearTimeout(elevateTimeout)
-    elevateTimeout = setTimeout(() => {
-      activeEl.style.boxShadow = '10px 20px 6px rgba(0,0,0,0.8)'
-    }, 200)
-
-    offsetLeft = el.offsetLeft
-    offsetTop = el.offsetTop
-    const clickCount = el.clicked || 0
-    el.clicked = clickCount + 1
-
-    if (el.clicked >= 2) {
-      activate(el)
-    }
-    setTimeout(() => { el.clicked = 0 }, 500)
-    el.style.zIndex = z++
+    handleCardDown(el)
   })
 
   el.addEventListener('dragstart', (e) => {
