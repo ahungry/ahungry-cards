@@ -57,6 +57,19 @@ html, body {
 .card .left { text-align: left; }
 .card .right { text-align: right; }
 
+.card.tcg {
+  text-align: center;
+  left: 300px;
+  top: 100px;
+  position: absolute;
+}
+.card.tcg h1 {
+  text-align: left;
+  font-size: 1rem;
+}
+.card.tcg .size1 { font-size: 3rem; text-align: center; }
+.card.tcg .small { font-size: 0.6rem; }
+
 /* If width is less than 600 do this stuff */
 @media (max-width: 600px)
 {
